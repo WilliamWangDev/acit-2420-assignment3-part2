@@ -1,0 +1,49 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# this is the generate_index script
+# you shouldn't have to edit this script
+
+# Variables
+KERNEL_RELEASE=$(uname -r)
+OS_NAME=$(grep '^PRETTY_NAME' /etc/os-release | cut -d '=' -f2 | tr -d '"')
+DATE=$(date +"%d/%m/%Y")
+PACKAGE_COUNT=$(pacman -Q | wc -l)
+PUBLIC_IP_ADRESS=$(ip -4 a show dev eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
+OUTPUT_DIR="/var/lib/webgen/HTML"
+OUTPUT_FILE="$OUTPUT_DIR/index.html"
+
+# Ensure the target directory exists
+if [[ ! -d "$OUTPUT_DIR" ]]; then
+    echo "Error: Failed to create or access directory $OUTPUT_DIR." >&2
+    exit 1
+fi
+
+# Create the index.html file
+cat <<EOF > "$OUTPUT_FILE"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Information</title>
+</head>
+<body>
+    <h1>System Information</h1>
+    <p><strong>Kernel Release:</strong> $KERNEL_RELEASE</p>
+    <p><strong>Operating System:</strong> $OS_NAME</p>
+    <p><strong>Date:</strong> $DATE</p>
+    <p><strong>Number of Installed Packages:</strong> $PACKAGE_COUNT</p>
+    <p><strong>Public IP address of server:</strong> $PUBLIC_IP_ADRESS</p>
+</body>
+</html>
+EOF
+
+# Check if the file was created successfully
+if [ $? -eq 0 ]; then
+    echo "Success: File created at $OUTPUT_FILE."
+else
+    echo "Error: Failed to create the file at $OUTPUT_FILE." >&2
+    exit 1
+fi
