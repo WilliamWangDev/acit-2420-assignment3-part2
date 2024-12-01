@@ -106,6 +106,7 @@ sudo chown webgen:webgen /var/lib/webgen/documents/*
 
 ### Automate Index Generation
 **1. Create the `generate_index` script**
+
 Create `/var/lib/webgen/bin/generate_index`:
 ```bash
 #!/bin/bash
