@@ -1,0 +1,18 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name 137.184.224.55;
+
+    root /var/lib/webgen/HTML;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /documents {
+        root /var/lib/webgen;
+        autoindex on;
+    }
+}
+
