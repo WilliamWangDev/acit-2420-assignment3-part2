@@ -266,12 +266,12 @@ sudo systemctl enable --now generate-index.timer
    }
    ```
 
-6. **Enable the site**
+**6. Enable the site**
    ```bash
    sudo ln -s /etc/nginx/sites-available/system-page /etc/nginx/sites-enabled/
    ```
 
-7. **Test and restart nginx**
+**7. Test and restart nginx**
    ```bash
    sudo nginx -t
    sudo systemctl restart nginx
