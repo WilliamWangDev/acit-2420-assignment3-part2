@@ -95,7 +95,7 @@ This is file-one content.
 EOF'
 ```
 ```bash
-sudo bash -c 'cat <<EOF > /var/lib/webgen/documents/file-one
+sudo bash -c 'cat <<EOF > /var/lib/webgen/documents/file-two
 This is file-two content.
 EOF'
 ```
